@@ -1,0 +1,30 @@
+
+version: '3.6'
+
+service:
+  sync:
+    build:
+      context: "../vendor/explorer"
+    depends_on:
+      - db
+    environment:
+      MONGO_URI: 'mongodb://db/explorer_db'
+    command: ./tools/sync.js
+
+  stats:
+    build:
+      context: "../vendor/explorer"
+    depends_on:
+      - db
+    environment:
+      MONGO_URI: 'mongodb://db/explorer_db'
+    command: ./tools/stats.js
+
+  richlist:
+    build:
+      context: "../vendor/explorer"
+    depends_on:
+      - db
+    environment:
+      MONGO_URI: 'mongodb://db/explorer_db'
+    command: ./tools/richlist.js

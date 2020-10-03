@@ -2,3 +2,8 @@ version: '3.6'
 
 service:
   db:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: <% @config['database']['username'] %>
+      MONGO_INITDB_ROOT_PASSWORD: <% @config['database']['password'] %>

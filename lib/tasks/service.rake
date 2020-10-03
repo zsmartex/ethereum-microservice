@@ -30,4 +30,83 @@ namespace :service do
 
     @switch.call(args, method(:start), method(:stop))
   end
+
+  desc 'Run backend (db)'
+  task :backend, [:command] do |task, args|
+    args.with_defaults(:command => 'start')
+
+    def start
+      puts '----- Starting dependencies -----'
+      sh 'docker-compose up -d db'
+      sleep 7 # time for db to start, we can get connection refused without sleeping
+    end
+
+    def stop
+      puts '----- Stopping dependencies -----'
+      sh 'docker-compose rm -fs db'
+    end
+
+
+    @switch.call(args, method(:start), method(:stop))
+  end
+
+  desc 'Run app (explorer mew)'
+  task :app, [:command] do |task, args|
+    args.with_defaults(:command => 'start')
+
+    def start
+      puts '----- Starting dependencies -----'
+      sh 'docker-compose up -d rpc explorer mew'
+    end
+
+    def stop
+      puts '----- Stopping dependencies -----'
+      sh 'docker-compose rm -fs rpc explorer mew'
+    end
+
+
+    @switch.call(args, method(:start), method(:stop))
+  end
+
+  desc 'Run daemons'
+  task :daemons, [:command] do |task, args|
+    args.with_defaults(:command => 'start')
+
+    def start
+      puts '----- Starting dependencies -----'
+      sh 'docker-compose up -d sync stats richlist'
+    end
+
+    def stop
+      puts '----- Stopping dependencies -----'
+      sh 'docker-compose rm -fs sync stats richlist'
+    end
+
+
+    @switch.call(args, method(:start), method(:stop))
+  end
+
+  desc 'Run all'
+  task :all, [:command] do |task, args|
+    args.with_defaults(:command => 'start')
+
+    def start
+      puts '----- Starting dependencies -----'
+      Rake::Task["service:proxy"].invoke('start')
+      Rake::Task["service:backend"].invoke('start')
+      Rake::Task["service:app"].invoke('start')
+      Rake::Task["service:daemons"].invoke('start')
+    end
+
+    def stop
+      puts '----- Stopping dependencies -----'
+      Rake::Task["service:proxy"].invoke('stop')
+      Rake::Task["service:backend"].invoke('stop')
+      Rake::Task["service:app"].invoke('stop')
+      Rake::Task["service:daemons"].invoke('stop')
+    end
+
+
+    @switch.call(args, method(:start), method(:stop))
+  end
 end
