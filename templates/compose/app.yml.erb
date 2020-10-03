@@ -14,13 +14,15 @@ service:
       <%- else -%>
       - "traefik.http.routers.rpc-<%= @name %>.entrypoints=web"
       <%- end -%>
-    command: 
+    command: --rpc --rpccorsdomain "*" --rpcaddr "0.0.0.0" --rpcport "8545" --rpcapi="eth,net,web3,personal"
 
   explorer:
     build:
       context: "../vendor/explorer"
     depends_on:
       - db
+    volumes:
+      - ../config/explorer/config.json:/config.json
     environment:
       MONGO_URI: 'mongodb://db/explorer_db'
     labels:

@@ -1,0 +1,31 @@
+{
+  "nodeAddr":     "rpc",
+  "wsPort":       8546,
+  "startBlock":   0,
+  "endBlock":     "latest",
+  "quiet":        true,
+  "syncAll":      true,
+  "patch":        true,
+  "patchBlocks":  100,
+  "bulkSize":     100,
+  "settings": {
+      "symbol": "ETC",
+      "name": "Ethereum Classic",
+      "title": "Ethereum Classic Block Explorer",
+      "author": "Elaine",
+      "rss": "https://www.zsmart.tech",
+      "reddit": "#",
+      "twitter": "#",
+      "linkedin": "#",
+      "github": "https://github.com/zsmartex",
+      "logo": "/img/explorer-logo.png",
+      "copyright": "2019-2020 &copy; Ethereum ZSmart.",
+      "poweredbyCustom": false,
+      "poweredbyEtcImage": "/img/powered-by-etcexplorer-w.png",
+      "poweredbyEtc": true,
+      "useRichList": true,
+      "useFiat": true,
+      "miners": {
+       }
+  }
+}
