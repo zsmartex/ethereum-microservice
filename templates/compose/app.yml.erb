@@ -4,6 +4,11 @@ service:
   rpc:
     build:
       context: "../vendor/go-zsmart"
+    ports:
+      - "30303:30303"
+      - "30303:30303/udp"
+    volumes:
+      - ../data/geth:/zsmart-geth
     labels:
       - "traefik.http.routers.rpc-<%= @name %>.rule=Host(`rpc.<%= @config['app']['domain'] %>`) && PathPrefix(`/`)"
       - "traefik.http.services.rpc-<%= @name %>.loadbalancer.server.port=8545"
@@ -14,7 +19,7 @@ service:
       <%- else -%>
       - "traefik.http.routers.rpc-<%= @name %>.entrypoints=web"
       <%- end -%>
-    command: --rpc --rpccorsdomain "*" --rpcaddr "0.0.0.0" --rpcport "8545" --rpcapi="eth,net,web3,personal"
+    command: --datadir /zsmart-geth --rpc --rpccorsdomain "*" --rpcaddr "0.0.0.0" --rpcport "8545" --rpcapi="eth,net,web3,personal"
 
   explorer:
     build:
