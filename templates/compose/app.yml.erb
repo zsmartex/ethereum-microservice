@@ -3,7 +3,7 @@ version: '3.6'
 service:
   rpc:
     build:
-      context: "../vendor/geth"
+      context: "../vendor/go-zsmart"
     labels:
       - "traefik.http.routers.rpc-<%= @name %>.rule=Host(`rpc.<%= @config['app']['domain'] %>`) && PathPrefix(`/`)"
       - "traefik.http.services.rpc-<%= @name %>.loadbalancer.server.port=8545"
