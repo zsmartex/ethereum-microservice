@@ -7,13 +7,13 @@ config/traefik/*
 !config/traefik/.gitkeep
 
 data/db/*
-data/db/.gitkeep
+!data/db/.gitkeep
 
 data/geth/*
-data/geth/.gitkeep
+!data/geth/.gitkeep
 
 data/mew/*
-data/mew/.gitkeep
+!data/mew/.gitkeep
 
 data/ssl/*
-data/ssl/.gitkeep
+!data/ssl/.gitkeep
