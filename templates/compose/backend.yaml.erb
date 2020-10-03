@@ -3,7 +3,8 @@ version: '3.6'
 services:
   db:
     image: mongo
-    restart: always
+    volumes:
+      - ../data/db:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: <% @config['database']['username'] %>
       MONGO_INITDB_ROOT_PASSWORD: <% @config['database']['password'] %>
